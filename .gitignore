@@ -1,0 +1,19 @@
+# === General ===
+node_modules/
+dist/
+build/
+.env
+*.log
+
+# === pnpm ===
+.pnpm-debug.log
+.pnpm-store/
+
+# === Folders ===
+client/node_modules/
+server/node_modules/
+
+# === IDE ===
+.vscode/
+.idea/
+.DS_Store
