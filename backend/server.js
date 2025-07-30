@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 // auth routes
 app.use('/api/auth', authRoutes);
 app.use('/api/cart', cartRoutes);
-app.use('/api/product', cartRoutes);
+app.use('/api/product', productRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

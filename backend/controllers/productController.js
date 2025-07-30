@@ -2,13 +2,47 @@ const Product = require('../models/Product');
 
 
 
-// creating a product ---- to be continued later
+// creating a product 
 exports.createProduct = async (req,res)=>{
     try {
-        const { name, price }= req.body;
+        const { 
+            title,
+            description,
+            price,
+            discountPercentage,
+            rating,
+            stock,
+            brand,
+            category,
+            thumbnail,
+            images,
+            deleted
+        }= req.body;
 
+        // Basic required field validation
+        if (!title || !price || !category) {
+            return res.status(400).json({ message: "Title, price, and category are required." });
+        }
+
+        const product = new Product({
+            title,
+            description,
+            price,
+            discountPercentage,
+            rating,
+            stock,
+            brand,
+            category,
+            thumbnail,
+            images,
+            deleted
+        });
+
+        await product.save();
+
+        res.status(201).json({message:"product created successfully", product})
     } catch (error) {
-        
+        res.status(500).json({message:"Internal server error", error: error.message});
     }
 }
 
@@ -42,3 +76,4 @@ exports.getOneProduct = async (req,res)=>{
         res.status(500).json({message:"Error in fetching products", error: error.message})
     }
 }
+
