@@ -15,6 +15,8 @@ exports.addInCart = async (req,res)=>{
             cart = new Cart({ userId: user, items: [], status: "active" });
         }
 
+        const existingItemIndex = cart.items.findIndex(item => item.productId === productId);
+
         if (existingItemIndex > -1) {
             cart.items[existingItemIndex].quantity += parseInt(quantity);
         } else {
