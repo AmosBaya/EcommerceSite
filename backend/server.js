@@ -10,6 +10,7 @@ const ConnectDB = require('./config/db');
 // routes import
 const authRoutes = require('./routes/authRoutes');
 const cartRoutes = require('./routes/cartRoutes');
+const productRoutes = require('./routes/productRoutes');
 
 //consts
 const PORT = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 // auth routes
 app.use('/api/auth', authRoutes);
 app.use('/api/cart', cartRoutes);
+app.use('/api/product', cartRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
