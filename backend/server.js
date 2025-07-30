@@ -4,8 +4,12 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
-//mongodb connect import
+//mongodb connection import
 const ConnectDB = require('./config/db');
+
+// routes import
+const authRoutes = require('./routes/authRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 
 //consts
 const PORT = process.env.PORT || 3000;
@@ -16,14 +20,19 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// connect to db
-ConnectDB();
+// auth routes
+app.use('/api/auth', authRoutes);
+app.use('/api/cart', cartRoutes);
 
-app.listen(
-    PORT, ()=>{
-        console.log(`Server running on http://localhost/${PORT}`);
-    }
-)
+
+// connect to db and start the server
+ConnectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+});
+
+module.exports = app;
 
 
 

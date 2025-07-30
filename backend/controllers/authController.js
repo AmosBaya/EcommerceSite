@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
-const User = require('./models/User');
-const generateToken= require('./utils/generateToken')
+const User = require('../models/User');
+const generateToken= require('../utils/generateToken');
 
 
 exports.signup = async(req,res)=>{
@@ -45,6 +45,6 @@ exports.login = async (req,res)=>{
 
         res.status(200).json({message:"login success"})      
     } catch (err) {
-        res.status(500).json({message:"Internal server error", error: err.message})
+        res.status(500).json({message:"Login faoled", error: err.message})
     };
 };
