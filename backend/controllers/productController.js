@@ -50,7 +50,7 @@ exports.createProduct = async (req,res)=>{
 // get products
 exports.getProducts = async (req,res)=>{
     try {
-        const products = await Product.find([]);
+        const products = await Product.find();
 
         if(!products){
             return res.status(404).json({message:"No products found"})
