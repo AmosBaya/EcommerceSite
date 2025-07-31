@@ -48,3 +48,17 @@ exports.login = async (req,res)=>{
         res.status(500).json({message:"Login faoled", error: err.message})
     };
 };
+
+exports.getProfile = async (req,res)=>{
+    try {
+        const { username } = req.user;
+        
+        if(!username){
+            return res.status(401).json({message:"User not found"});
+        }
+
+        res.status(200).json({ username });
+    } catch (err) {
+        res.status(500).json({message:"Error in fetching username", error: err.message});
+    }
+};

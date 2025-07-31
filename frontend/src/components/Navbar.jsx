@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const categories = [
   { name: "Grocery", icon: "🛒", route: "/category/grocery" },
@@ -33,6 +34,7 @@ const Navbar = () => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
   const userMenuTimeout = useRef();
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   // Handlers to keep dropdown open when hovering over either button or menu
@@ -58,6 +60,25 @@ const Navbar = () => {
       navigate(`/search?q=${encodeURIComponent(search.trim())}`);
     }
   };
+
+   useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            fetch("https://flipkart-backend-7zx7.onrender.com/api/auth/profile", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => {
+                if (!res.ok) throw new Error("Unauthorized");
+                return res.json();
+            })
+            .then((data) => setUser(data))
+            .catch(() => setUser(null));
+        }else{
+            setUser(null);
+        }
+    }, []);
 
   return (
     <nav className="w-full bg-white shadow-sm font-sans">
@@ -104,6 +125,8 @@ const Navbar = () => {
           <Link to="/seller" className="font-medium cursor-pointer">
             Become a Seller
           </Link>
+
+          {user ? (
           <div
             className="relative font-medium cursor-pointer select-none"
             onMouseEnter={handleUserMenuEnter}
@@ -114,9 +137,10 @@ const Navbar = () => {
           >
             <span className="flex items-center gap-1">
               <span className="text-lg">👤</span>
-              <span className="text-blue-700">Anshul</span>
+              <span className="text-blue-700">{user?.username || "Login"}</span>
               <span className="text-xs">▼</span>
             </span>
+
             {userMenuOpen && (
               <div
                 className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 z-50 animate-fade-in"
@@ -149,6 +173,18 @@ const Navbar = () => {
               </div>
             )}
           </div>
+            ) : (
+               <Link to="/login" className="inline-block">
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        className="!capitalize !border-blue-600 !text-blue-600 hover:!bg-blue-50 !rounded-md !px-2 !py-1 transition-all"
+                    >
+                       <span className="text-bold">Login</span>
+                    </Button>
+                </Link>
+            )}
+
           <div className="text-2xl cursor-pointer">⋮</div>
         </div>
       </div>

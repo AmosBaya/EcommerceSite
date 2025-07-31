@@ -19,7 +19,7 @@ function Cart() {
       try {
         // Fetch all carts
         const cartRes = await fetch(
-          "https://flipkart-backend-7zx7.onrender.com/carts"
+          "https://flipkart-backend-7zx7.onrender.com/api/cart/getcarts"
         );
         const cartData = await cartRes.json();
         if (!cartData.success) throw new Error("Failed to fetch carts");
@@ -50,7 +50,7 @@ function Cart() {
 
         // Fetch all products
         const prodRes = await fetch(
-          "https://flipkart-backend-7zx7.onrender.com/products"
+          "https://flipkart-backend-7zx7.onrender.com/api/product/all"
         );
         const productsResponse = await prodRes.json();
         // Robustly flatten all nested products arrays

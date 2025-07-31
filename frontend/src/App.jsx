@@ -255,7 +255,7 @@ function AppContent({ products }) {
 function App() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("https://flipkart-backend-7zx7.onrender.com/products")
+    fetch("https://flipkart-backend-7zx7.onrender.com/api/product/all")
       .then((res) => res.json())
       .then((data) => {
         // If data is an array of objects with products arrays, flatten them

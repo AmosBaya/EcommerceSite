@@ -15,7 +15,7 @@ function Signup() {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://flipkart-backend-7zx7.onrender.com/auth/signup",
+        "https://flipkart-backend-7zx7.onrender.com/api/auth/signup",
         {
           method: "POST",
           body: JSON.stringify({ username, email, password }),

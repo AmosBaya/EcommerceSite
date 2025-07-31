@@ -10,7 +10,7 @@ function Search() {
   const query = useQuery().get("q") || "";
 
   useEffect(() => {
-    fetch("https://flipkart-backend-7zx7.onrender.com/products")
+    fetch("https://flipkart-backend-7zx7.onrender.com/api/product/all")
       .then((res) => res.json())
       .then((data) => {
         // Flatten if needed

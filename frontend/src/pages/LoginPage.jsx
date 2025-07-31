@@ -53,7 +53,7 @@ function Login() {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://flipkart-backend-7zx7.onrender.com/auth/login",
+        "https://flipkart-backend-7zx7.onrender.com/api/auth/login",
         {
           method: "POST",
           body: JSON.stringify({ email, password }),
@@ -64,6 +64,7 @@ function Login() {
       if (data.token) {
         localStorage.setItem("token", data.token);
         navigate("/");
+        window.location.reload();
       } else {
         setError(data.error || "Login failed");
       }
