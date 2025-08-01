@@ -45,7 +45,7 @@ exports.addInCart = async (req,res)=>{
 
 exports.getCarts = async (req,res)=>{
     try {
-    const carts = await Cart.find({});
+    const carts = await Cart.find();
 
     res.status(200).json({
       success: true,
